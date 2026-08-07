@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEENEESH YOUR WORK CHRIS</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #111827;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.2s ease;
+        }
+
+        /* Hide main content until passcode is entered */
+        #content {
+            display: none;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: clamp(2rem, 6vw, 4.5rem);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+        }
+
+        h2 {
+            color: #facc15;
+            font-size: clamp(1.2rem, 3.5vw, 2.2rem);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 1.5px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+        }
+
+        img {
+            max-width: 90vw;
+            max-height: 60vh;
+            border-radius: 16px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            display: block;
+            margin: 0 auto;
+            transition: filter 0.2s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(-15px, 15px) rotate(-8deg); }
+            40% { transform: translate(15px, -15px) rotate(8deg); }
+            60% { transform: translate(-10px, -10px) rotate(-4deg); }
+            80% { transform: translate(10px, 10px) rotate(4deg); }
+        }
+
+        .effect-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Passcode Protected Container -->
+    <div id="content">
+        <div class="container" id="target">
+            <h1>feeneesh your work chris</h1>
+            <h2>mamuchies belly rolls</h2>
+            <!-- Default image loaded on first page view -->
+            <img src="IMG_1894.png" alt="Work Target" id="chrisImage">
+        </div>
+    </div>
+
+    <script>
+        // =========================================================
+        // PASSCODE CONFIGURATION
+        // =========================================================
+        const passcode = "1";
+        const userEntry = prompt("Enter passcode to access:");
+
+        if (userEntry === passcode) {
+            document.getElementById("content").style.display = "block";
+        } else {
+            document.body.innerHTML = "<h1 style='color: white; text-align: center;'>Access Denied</h1>";
+        }
+
+        // =========================================================
+        // SPECIFY YOUR PHOTO FILE NAMES HERE:
+        // =========================================================
+        const photos = [
+            "IMG_0436.png",
+            "IMG_0439.PNG",
+            "IMG_1894.png",
+            "IMG_2124.png"
+        ];
+        // =========================================================
+
+        const container = document.getElementById('target');
+        const img = document.getElementById('chrisImage');
+        const body = document.body;
+
+        const bgColors = ['#111827', '#dc2626', '#2563eb', '#16a34a', '#9333ea', '#ea580c', '#000000', '#facc15'];
+
+        container.addEventListener('click', () => {
+            // Pick a random image from your photos list
+            const randomPhoto = photos[Math.floor(Math.random() * photos.length)];
+            img.src = randomPhoto;
+
+            // Pick a random background color
+            const randomBg = bgColors[Math.floor(Math.random() * bgColors.length)];
+            body.style.backgroundColor = randomBg;
+
+            // Generate random rotation, scale, and flip
+            const randomRotate = (Math.random() - 0.5) * 720;
+            const randomScale = 0.6 + Math.random() * 0.8;
+            const flipX = Math.random() > 0.5 ? -1 : 1;
+            const flipY = Math.random() > 0.5 ? -1 : 1;
+
+            container.style.transform = `scale(${randomScale}) rotate(${randomRotate}deg) scaleX(${flipX}) scaleY(${flipY})`;
+
+            // Random image filters
+            const hue = Math.floor(Math.random() * 360);
+            const invert = Math.random() > 0.5 ? 100 : 0;
+            img.style.filter = `hue-rotate(${hue}deg) invert(${invert}%)`;
+
+            // Trigger shake effect
+            container.classList.remove('effect-shake');
+            void container.offsetWidth;
+            container.classList.add('effect-shake');
+        });
+    </script>
+
+</body>
+</html>
